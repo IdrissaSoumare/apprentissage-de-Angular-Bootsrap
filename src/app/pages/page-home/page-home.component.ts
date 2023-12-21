@@ -8,7 +8,11 @@ import { PlantsService } from 'src/app/services/plants.service';
   styleUrls: ['./page-home.component.css']
 })
 export class PageHomeComponent implements OnInit {
+  divDisplayed = false;
+  testAffichage = 'hello';
+  monTitle = 'test de titre';
   plantsToDisplay: Plant[] = [];
+
   constructor(private plantsService: PlantsService) {
     //this=>getPlants(), c'est le fetch en js
     //le .subscribe, c'est le then en js
@@ -25,5 +29,9 @@ export class PageHomeComponent implements OnInit {
       console.log(data);
       this.plantsToDisplay = [...data];
     });
+  }
+
+  isDisplayDiv() {
+    this.divDisplayed = !this.divDisplayed;
   }
 }
