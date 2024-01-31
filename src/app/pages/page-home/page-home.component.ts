@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Plant } from 'src/app/models/plant';
 import { PlantsService } from 'src/app/services/plants.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-page-home',
@@ -12,6 +13,7 @@ export class PageHomeComponent implements OnInit {
   testAffichage = 'hello';
   monTitle = 'test de titre';
   plantsToDisplay: Plant[] = [];
+  categoriesToSend: string[] = [];
 
   constructor(private plantsService: PlantsService) {
     //this=>getPlants(), c'est le fetch en js
@@ -26,12 +28,36 @@ export class PageHomeComponent implements OnInit {
   }
   ngOnInit(): void {
     this.plantsService.getPlants().subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.plantsToDisplay = [...data];
+      const result = this.getCategoriesFromPlants(data);
+      this.categoriesToSend = this.getCategoriesFromPlants(data);
+
     });
   }
 
-  isDisplayDiv() {
-    this.divDisplayed = !this.divDisplayed;
+  getCategoriesFromPlants(plants: Plant[]): string[] {
+    //trier les 6 categories
+    const plantsToDisplay = plants;
+    const withoutDoublons = new Set(plants.map(x => x.categorie))
+    //transformer le set en tableau
+    const sansDoublons = [...withoutDoublons]
+    console.log(sansDoublons)
+    return sansDoublons;
   }
+  filterPlantsByCategories(categories: string[]) {
+    //mise en place du filtre des plantes en fonction de leur categorie
+    this.plantsToDisplay = this.plantsToDisplay.filter(x => categories.includes(x.categorie));
+
+
+    console.log(categories);
+  }
+
+  //retorner un tableau qui contient des palantes de maniere unique
+  //.map()
+  //set =>supprime les doublons
+  // transformer le set en tableau
+  //
 }
+
+

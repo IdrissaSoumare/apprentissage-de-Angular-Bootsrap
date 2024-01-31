@@ -13,6 +13,7 @@ const routes: Routes = [
   // ci dessous, le path pour aller à la page admin
   { path: 'admin', component: PageAdminComponent },
   //les etoiles font reference à 'tout' sauf ce qui doit être mentionné comme bonne url
+  //page d'erreur
   { path: '**', component: PageNotFoundComponent },
 
 ];
