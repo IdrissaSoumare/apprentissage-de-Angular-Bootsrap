@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Plant } from 'src/app/models/plant';
 import { PlantsService } from 'src/app/services/plants.service';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-page-home',
@@ -14,6 +13,11 @@ export class PageHomeComponent implements OnInit {
   monTitle = 'test de titre';
   plantsToDisplay: Plant[] = [];
   categoriesToSend: string[] = [];
+  tableauPlas!: Plant[];
+  projetPLant: string = "";
+  filtersPlant!: string[];
+
+
 
   constructor(private plantsService: PlantsService) {
     //this=>getPlants(), c'est le fetch en js
@@ -28,10 +32,12 @@ export class PageHomeComponent implements OnInit {
   }
   ngOnInit(): void {
     this.plantsService.getPlants().subscribe((data) => {
-      // console.log(data);
+      console.log(data);
       this.plantsToDisplay = [...data];
-      const result = this.getCategoriesFromPlants(data);
+
       this.categoriesToSend = this.getCategoriesFromPlants(data);
+      this.tableauPlas = [...data];
+      this.filtersPlant = [...this.categoriesToSend]
 
     });
   }
@@ -45,12 +51,10 @@ export class PageHomeComponent implements OnInit {
     console.log(sansDoublons)
     return sansDoublons;
   }
+  //appelé quand l'utilisateur change les categories choisies
   filterPlantsByCategories(categories: string[]) {
-    //mise en place du filtre des plantes en fonction de leur categorie
-    this.plantsToDisplay = this.plantsToDisplay.filter(x => categories.includes(x.categorie));
-
-
-    console.log(categories);
+    this.filtersPlant = categories;
+    this.onUpdate();
   }
 
   //retorner un tableau qui contient des palantes de maniere unique
@@ -58,6 +62,22 @@ export class PageHomeComponent implements OnInit {
   //set =>supprime les doublons
   // transformer le set en tableau
   //
+  onRecupere(plants: string) {
+    console.log(this.plantsToDisplay);
+    console.log(plants);
+    this.projetPLant = plants;
+    this.onUpdate();
+  }
+
+  onUpdate() {
+    this.plantsToDisplay = [...this.tableauPlas];
+    this.plantsToDisplay = this.plantsToDisplay.filter(x => this.filtersPlant.includes(x.categorie));
+    //en partant du tableau de base, je conserve les plantes dont la categorie est incluse dans le tableau 'filtersplants'=>qui contient les categories choisies par l'utilisateur
+    console.log(this.filtersPlant);
+
+    this.plantsToDisplay = this.plantsToDisplay.filter(x => x.nom.toLowerCase().includes(this.projetPLant.toLowerCase()));
+
+  }
+
+
 }
-
-

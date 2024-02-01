@@ -3,8 +3,11 @@
         (categoriesToFilter)="filterPlantsByCategories($event)"></app-filter-side-bar>
 
 
-    <div class="container-plants p-4">
-
-        <app-card-plant [plant]="plantData" *ngFor="let plantData of plantsToDisplay"></app-card-plant>
+    <div>
+        <app-search-one-plants (categoriesToFilter)="onRecupere($event)"></app-search-one-plants>
+        <div class="container-plants p-4">
+            <app-card-plant [plant]="plantData" *ngFor="let plantData of plantsToDisplay"></app-card-plant>
+        </div>
     </div>
+
 </div>

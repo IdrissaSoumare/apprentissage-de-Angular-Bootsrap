@@ -10,7 +10,8 @@ import { PageAdminComponent } from './pages/page-admin/page-admin.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CardPlantComponent } from './components/card-plant/card-plant.component';
-import { FilterSideBarComponent } from './components/filter-side-bar/filter-side-bar.component';//permet l'import de requetes http dans l'appli
+import { FilterSideBarComponent } from './components/filter-side-bar/filter-side-bar.component';
+import { SearchOnePlantsComponent } from './components/search-one-plants/search-one-plants.component';//permet l'import de requetes http dans l'appli
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FilterSideBarComponent } from './components/filter-side-bar/filter-side
     PageAdminComponent,
     PageNotFoundComponent,
     CardPlantComponent,
-    FilterSideBarComponent
+    FilterSideBarComponent,
+    SearchOnePlantsComponent
   ],
   imports: [
     BrowserModule,
