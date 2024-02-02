@@ -14,6 +14,7 @@ export class SearchOnePlantsComponent {
 
   onKey(event: Event) {
     const target = event.target as HTMLInputElement;
+    //dans le HTMLInputElement, on a des léments de type string
     this.categoriesToFilter.emit(target.value)
   }
 
