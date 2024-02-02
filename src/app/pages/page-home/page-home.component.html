@@ -7,7 +7,8 @@
         <div class="p-4"><app-search-one-plants (categoriesToFilter)="onRecupere($event)"></app-search-one-plants>
         </div>
         <div class="d-flex container-plants p-4">
-            <app-card-plant [plant]="plantData" *ngFor="let plantData of plantsToDisplay"></app-card-plant>
+            <app-card-plant class="one-plant" *ngFor="let plantData of plantsToDisplay"
+                [plant]="plantData"></app-card-plant>
         </div>
     </div>
 
